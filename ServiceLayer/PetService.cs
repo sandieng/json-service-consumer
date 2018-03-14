@@ -7,8 +7,8 @@ namespace ServiceLayer
 {
     public class PetService : IHttpClient
     {
-        private HttpClient _client;
-        private string _uri;
+        private readonly HttpClient _client;
+        private readonly string _uri;
 
         public PetService(string uri)
         {

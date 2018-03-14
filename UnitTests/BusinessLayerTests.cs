@@ -48,7 +48,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void ReturnAListOfPetsAndOwner_Successful()
+        public void ReturnAListOfPetsAndOwners_Successful()
         {
             // Arrange
             var mockHttpClient = new Mock<IHttpClient>();
@@ -84,7 +84,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void ReturnAListOfCatsAndOwner_Successful()
+        public void ReturnAListOfCatsAndOwners_Successful()
         {
             // Arrange
             var mockHttpClient = new Mock<IHttpClient>();
@@ -115,8 +115,7 @@ namespace UnitTests
             mockHttpClient.Setup(x => x.GetResultsAsync()).Returns(Task.FromResult(jsonStringObject));
 
             // Act
-            var birdOwnerListGroup = petRetriever.GetListOfPetsByPetType(PetType.Bird)
-                .GroupByGender();
+            var birdOwnerListGroup = petRetriever.GetListOfPetsByPetType(PetType.Bird).GetPetList();
 
             // Assert
             Assert.IsNotNull(birdOwnerListGroup);

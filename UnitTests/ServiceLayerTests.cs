@@ -64,11 +64,11 @@ namespace UnitTests
             // Act
             var jsonObjects = petService.GetResultsAsync();
             List<PetOwner> ownerToPetList = JsonConvert.DeserializeObject<List<PetOwner>>(jsonObjects.Result);
-            var StevePets = ownerToPetList.Find(x => x.Name.ToLower() == "steve");
+            var stevePets = ownerToPetList.Find(x => x.Name.ToLower() == "steve");
 
             // Assert
             Assert.IsNotNull(ownerToPetList);
-            Assert.IsNull(StevePets.Pets);
+            Assert.IsNull(stevePets.Pets);
         }
 
         [TestMethod]
@@ -80,15 +80,15 @@ namespace UnitTests
             // Act
             var jsonObjects = petService.GetResultsAsync();
             List<PetOwner> ownerToPetList = JsonConvert.DeserializeObject<List<PetOwner>>(jsonObjects.Result);
-            var FredPets = ownerToPetList.Find(x => x.Name.ToLower() == "fred");
-            var FredCats = FredPets.Pets.FindAll(x => x.Type == PetType.Cat);
-            var FredDogs = FredPets.Pets.FindAll(x => x.Type == PetType.Dog);
+            var fredPets = ownerToPetList.Find(x => x.Name.ToLower() == "fred");
+            var fredCats = fredPets.Pets.FindAll(x => x.Type == PetType.Cat);
+            var fredDogs = fredPets.Pets.FindAll(x => x.Type == PetType.Dog);
 
             // Assert
             Assert.IsNotNull(ownerToPetList);
-            Assert.IsNotNull(FredPets.Pets);
-            Assert.AreEqual(3, FredCats.Count);
-            Assert.AreEqual(1, FredDogs.Count);
+            Assert.IsNotNull(fredPets.Pets);
+            Assert.AreEqual(3, fredCats.Count);
+            Assert.AreEqual(1, fredDogs.Count);
         }
     }
 }
