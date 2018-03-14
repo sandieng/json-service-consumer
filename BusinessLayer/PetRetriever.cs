@@ -54,5 +54,10 @@ namespace BusinessLayer
 
             return groupResult.ToList();
         }
+
+        public int Count()
+        {
+            return _petOwnerList.Count();
+        }
     }
 }
