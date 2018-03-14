@@ -33,7 +33,7 @@ namespace UnitTests
                                Pets = new List<Pet>
                                {
                                     new Pet { Name = "Thunder", Type = BusinessLayer.PetType.Dog },
-                                    new Pet { Name = "LIghtning", Type = BusinessLayer.PetType.Dog },
+                                    new Pet { Name = "Lightning", Type = BusinessLayer.PetType.Dog },
                                }
                 },
                   new PetOwner { Age = 8,
@@ -61,6 +61,26 @@ namespace UnitTests
 
             // Assert
             Assert.IsNotNull(catOwnerListGroupByGender);
+        }
+
+        [TestMethod]
+        public void ReturnAListOfPetsForKyara_Successful()
+        {
+            // Arrange
+            var mockHttpClient = new Mock<IHttpClient>();
+            var jsonStringObject = JsonConvert.SerializeObject(_petOwnerList);
+            var petRetriever = new PetRetriever(mockHttpClient.Object);
+            mockHttpClient.Setup(x => x.GetResultsAsync()).Returns(Task.FromResult(jsonStringObject));
+
+            // Act
+            var allPetsAndOwners = petRetriever.GetListOfPetsByPetType(PetType.All).GetPetList();
+            var kyaraPets = allPetsAndOwners.FindAll(x => x.OwnerName.ToLower() == "kyara");
+
+            // Assert
+            Assert.IsNotNull(kyaraPets);
+            Assert.AreEqual(2, kyaraPets.Count);
+            Assert.AreEqual("Thunder", kyaraPets[0].PetName);
+            Assert.AreEqual("Lightning", kyaraPets[1].PetName);
         }
 
         [TestMethod]

@@ -6,6 +6,7 @@
         Dog,
         Fish,
         Bird,
-        Reptile        
+        Reptile,
+        All
     }
 }

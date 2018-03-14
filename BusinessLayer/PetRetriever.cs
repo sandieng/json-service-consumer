@@ -24,14 +24,14 @@ namespace BusinessLayer
             List<PetOwner> ownerToPetList = JsonConvert.DeserializeObject<List<PetOwner>>(jsonResponse.Result);
 
             ownerToPetList
-                .Where(x => x.Pets != null && x.Pets.Any(y => y.Type == petType))
+                .Where(x => x.Pets != null && x.Pets.Any(y => petType == PetType.All || y.Type == petType))
                 .AsParallel()
                 .ToList()
                 .ForEach(x =>
                 {
                     // Get the pet which is of 'petType', eg: Cat only, Dog only, Fish only, etc
                     _petOwnerList
-                      .AddRange(x.Pets.Where(y => y.Type == petType)
+                      .AddRange(x.Pets.Where(y => petType == PetType.All || y.Type == petType)
                       .Select(y => new PetOwnerVM
                       {
                           OwnerName = x.Name,
@@ -58,6 +58,11 @@ namespace BusinessLayer
         public int Count()
         {
             return _petOwnerList.Count();
+        }
+
+        public List<PetOwnerVM> GetPetList()
+        {
+            return _petOwnerList;
         }
     }
 }

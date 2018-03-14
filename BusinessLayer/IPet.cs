@@ -7,5 +7,7 @@ namespace BusinessLayer
     {
         PetRetriever GetListOfPetsByPetType(PetType petType);
         List<PetOwnerGroupVM> GroupByGender();
+        int Count();
+        List<PetOwnerVM> GetPetList();
     }
 }
